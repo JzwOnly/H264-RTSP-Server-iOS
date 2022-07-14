@@ -36,13 +36,13 @@
         videoWidth = dimensions.width;
         videoHeight = dimensions.height;
     } else {
-        videoWidth = width
+        videoWidth = width;
         videoHeight = height;
     }
     
     // video inputs
     NSDictionary* videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-                              AVVideoCodecH264, AVVideoCodecKey,
+                                   AVVideoCodecTypeH264, AVVideoCodecKey,
                               [NSNumber numberWithInt:videoWidth], AVVideoWidthKey,
                               [NSNumber numberWithInt:videoHeight], AVVideoHeightKey,
                               [NSDictionary dictionaryWithObjectsAndKeys:
@@ -55,21 +55,19 @@
         _videoInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo outputSettings:videoSettings];
     }
     _videoInput.expectsMediaDataInRealTime = YES;
-    if (_writer canAddInput:_videoInput) {
+    if ([_writer canAddInput:_videoInput]) {
         [_writer addInput:_videoInput];
     }
     
     // audio inputs
-    NSDictionary* audioSettings = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithInt:kAudioFormatMPEG4AAC], AVFormatIDKey,
-                              nil];
+    NSDictionary * audioSettings = @{AVFormatIDKey: [NSNumber numberWithInt:kAudioFormatMPEG4AAC]};
     if (audioTrack) {
         _audioInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeAudio outputSettings:audioSettings sourceFormatHint:audioTrack];
     } else {
         _audioInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeAudio outputSettings:audioSettings];
     }
     _audioInput.expectsMediaDataInRealTime = YES;
-    if (_writer canAddInput:_audioInput) {
+    if ([_writer canAddInput:_audioInput]) {
         [_writer addInput:_audioInput];
     }
 }
@@ -94,7 +92,7 @@
             NSLog(@"writer error %@", _writer.error.localizedDescription);
             return NO;
         }
-        AVAssetWriterInput * writerInput = (mediaType == AVMediaTypeVideo ? _videoInput : _audioInput;
+        AVAssetWriterInput * writerInput = (mediaType == AVMediaTypeVideo ? _videoInput : _audioInput);
         if (writerInput.readyForMoreMediaData == YES)
         {
             [writerInput appendSampleBuffer:sampleBuffer];
