@@ -15,7 +15,8 @@
 @interface VideoEncoder : NSObject
 {
     AVAssetWriter* _writer;
-    AVAssetWriterInput* _writerInput;
+    AVAssetWriterInput* _videoInput;
+    AVAssetWriterInput* _audioInput;
     NSString* _path;
 }
 
