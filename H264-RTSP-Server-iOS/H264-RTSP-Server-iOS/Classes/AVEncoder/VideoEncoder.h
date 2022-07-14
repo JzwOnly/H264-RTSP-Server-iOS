@@ -21,11 +21,11 @@
 
 @property NSString* path;
 
-+ (VideoEncoder*) encoderForPath:(NSString*) path Height:(int) height andWidth:(int) width;
++ (VideoEncoder*) encoderForPath:(NSString*) path Height:(int) height andWidth:(int) width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack;
 
 - (void) initPath:(NSString*)path Height:(int) height andWidth:(int) width;
 - (void) finishWithCompletionHandler:(void (^)(void))handler;
-- (BOOL) encodeFrame:(CMSampleBufferRef) sampleBuffer;
+- (BOOL) encodeFrame:(CMSampleBufferRef) sampleBuffer mediaType:(AVMediaType)mediaType;
 
 
 @end
