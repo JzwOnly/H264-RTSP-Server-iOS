@@ -102,7 +102,7 @@ static unsigned int to_host(unsigned char* p)
     double _firstpts;
 }
 
-- (void) initForHeight:(int) height andWidth:(int) width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack;
+- (void) initForHeight:(int) height andWidth:(int) width videoTrack:(CMFormatDescriptionRef)videoTrack audioTrack:(CMFormatDescriptionRef)audioTrack;
 
 @end
 
@@ -110,7 +110,7 @@ static unsigned int to_host(unsigned char* p)
 
 @synthesize bitspersecond = _bitspersecond;
 
-+ (AVEncoder*) encoderForHeight:(int) height andWidth:(int) width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack
++ (AVEncoder*) encoderForHeight:(int) height andWidth:(int) width videoTrack:(CMFormatDescriptionRef)videoTrack audioTrack:(CMFormatDescriptionRef)audioTrack
 {
     AVEncoder* enc = [AVEncoder alloc];
     [enc initForHeight:height andWidth:width videoTrack: videoTrack audioTrack: audioTrack];
@@ -123,7 +123,7 @@ static unsigned int to_host(unsigned char* p)
     NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:filename];
     return path;
 }
-- (void) initForHeight:(int)height andWidth:(int)width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack
+- (void) initForHeight:(int)height andWidth:(int)width videoTrack:(CMFormatDescriptionRef)videoTrack audioTrack:(CMFormatDescriptionRef)audioTrack
 {
     _height = height;
     _width = width;
