@@ -14,13 +14,10 @@ typedef int (^param_handler_t)(NSData* params);
 
 @interface AVEncoder : NSObject
 
-+ (AVEncoder*) encoderForHeight:(int) height andWidth:(int) width;
-
-- (void) addVideoTrackWithFormatDescription:(CMFormatDescription)formatDescription;
-- (void) addAudioTrackWithFormatDescription:(CMFormatDescription)formatDescription;
++ (AVEncoder*) encoderForHeight:(int) height andWidth:(int) width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack;
 
 - (void) encodeWithBlock:(encoder_handler_t) block onParams: (param_handler_t) paramsHandler;
-- (void) encodeFrame:(CMSampleBufferRef) sampleBuffer;
+- (void) encodeFrame:(CMSampleBufferRef) sampleBuffer mediaType:(AVMediaType)mediaType;
 - (NSData*) getConfigData;
 - (void) shutdown;
 
