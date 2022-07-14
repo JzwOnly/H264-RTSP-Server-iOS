@@ -250,7 +250,7 @@ static unsigned int to_host(unsigned char* p)
     }
 }
 
-- (void) encodeFrame:(CMSampleBufferRef) sampleBuffer
+- (void) encodeFrame:(CMSampleBufferRef) sampleBuffer mediaType:(AVMediaType)mediaType
 {
     @synchronized(self)
     {
@@ -261,7 +261,7 @@ static unsigned int to_host(unsigned char* p)
             // file (containing only one frame) is then finished, so we can extract the avcC record.
             // Only when we've got that do we start reading from the main file.
             _needParams = NO;
-            if ([_headerWriter encodeFrame:sampleBuffer])
+            if ([_headerWriter encodeFrame:sampleBuffer mediaType:mediaType])
             {
                 [_headerWriter finishWithCompletionHandler:^{
                     [self onParamsCompletion];
@@ -313,7 +313,7 @@ static unsigned int to_host(unsigned char* p)
                 });
             }
         }
-        [_writer encodeFrame:sampleBuffer];
+        [_writer encodeFrame:sampleBuffer mediaType:mediaType];
     }
 }
 
