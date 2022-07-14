@@ -22,7 +22,7 @@
 
 @property NSString* path;
 
-+ (VideoEncoder*) encoderForPath:(NSString*) path Height:(int) height andWidth:(int) width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack;
++ (VideoEncoder*) encoderForPath:(NSString*) path Height:(int) height andWidth:(int) width videoTrack:(CMFormatDescriptionRef)videoTrack audioTrack:(CMFormatDescriptionRef)audioTrack;
 
 - (void) initPath:(NSString*)path Height:(int) height andWidth:(int) width;
 - (void) finishWithCompletionHandler:(void (^)(void))handler;
