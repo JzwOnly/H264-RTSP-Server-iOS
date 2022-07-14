@@ -12,7 +12,7 @@
 
 @synthesize path = _path;
 
-+ (VideoEncoder*) encoderForPath:(NSString*) path Height:(int) height andWidth:(int) width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack
++ (VideoEncoder*) encoderForPath:(NSString*) path Height:(int) height andWidth:(int) width videoTrack:(CMFormatDescriptionRef)videoTrack audioTrack:(CMFormatDescriptionRef)audioTrack
 {
     VideoEncoder* enc = [VideoEncoder alloc];
     [enc initPath:path Height:height andWidth:width videoTrack:videoTrack audioTrack:audioTrack];
@@ -20,7 +20,7 @@
 }
 
 
-- (void) initPath:(NSString*)path Height:(int) height andWidth:(int) width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack
+- (void) initPath:(NSString*)path Height:(int) height andWidth:(int) width videoTrack:(CMFormatDescriptionRef)videoTrack audioTrack:(CMFormatDescriptionRef)audioTrack
 {
     self.path = path;
     
