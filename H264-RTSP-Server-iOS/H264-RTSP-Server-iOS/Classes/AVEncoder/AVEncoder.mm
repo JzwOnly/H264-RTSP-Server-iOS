@@ -65,6 +65,8 @@ static unsigned int to_host(unsigned char* p)
     int _currentFile;
     int _height;
     int _width;
+    CMFormatDescription _videoTrack;
+    CMFormatDescription _audioTrack;
     
     // param set data
     NSData* _avcC;
@@ -100,7 +102,7 @@ static unsigned int to_host(unsigned char* p)
     double _firstpts;
 }
 
-- (void) initForHeight:(int) height andWidth:(int) width;
+- (void) initForHeight:(int) height andWidth:(int) width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack;
 
 @end
 
@@ -108,10 +110,10 @@ static unsigned int to_host(unsigned char* p)
 
 @synthesize bitspersecond = _bitspersecond;
 
-+ (AVEncoder*) encoderForHeight:(int) height andWidth:(int) width
++ (AVEncoder*) encoderForHeight:(int) height andWidth:(int) width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack
 {
     AVEncoder* enc = [AVEncoder alloc];
-    [enc initForHeight:height andWidth:width];
+    [enc initForHeight:height andWidth:width videoTrack: videoTrack audioTrack: audioTrack];
     return enc;
 }
 
@@ -121,17 +123,19 @@ static unsigned int to_host(unsigned char* p)
     NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:filename];
     return path;
 }
-- (void) initForHeight:(int)height andWidth:(int)width
+- (void) initForHeight:(int)height andWidth:(int)width videoTrack:(CMFormatDescription)videoTrack audioTrack:(CMFormatDescription)audioTrack
 {
     _height = height;
     _width = width;
+    _videoTrack = videoTrack;
+    _audioTrack = audioTrack;
     NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"params.mp4"];
-    _headerWriter = [VideoEncoder encoderForPath:path Height:height andWidth:width];
+    _headerWriter = [VideoEncoder encoderForPath:path Height:height andWidth:width videoTrack: videoTrack audioTrack: audioTrack];
     _times = [NSMutableArray arrayWithCapacity:10];
     
     // swap between 3 filenames
     _currentFile = 1;
-    _writer = [VideoEncoder encoderForPath:[self makeFilename] Height:height andWidth:width];
+    _writer = [VideoEncoder encoderForPath:[self makeFilename] Height:height andWidth:width videoTrack: videoTrack audioTrack: audioTrack];
 }
 
 - (void) encodeWithBlock:(encoder_handler_t) block onParams: (param_handler_t) paramsHandler
@@ -292,7 +296,7 @@ static unsigned int to_host(unsigned char* p)
                     _currentFile = 1;
                 }
                 NSLog(@"Swap to file %d", _currentFile);
-                _writer = [VideoEncoder encoderForPath:[self makeFilename] Height:_height andWidth:_width];
+                _writer = [VideoEncoder encoderForPath:[self makeFilename] Height:_height andWidth:_width videoTrack: _videoTrack audioTrack: _audioTrack];
                 
                 
                 // to do this seamlessly requires a few steps in the right order
