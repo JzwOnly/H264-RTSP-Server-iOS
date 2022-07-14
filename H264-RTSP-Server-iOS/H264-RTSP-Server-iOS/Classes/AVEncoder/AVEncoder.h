@@ -16,6 +16,9 @@ typedef int (^param_handler_t)(NSData* params);
 
 + (AVEncoder*) encoderForHeight:(int) height andWidth:(int) width;
 
+- (void) addVideoTrackWithFormatDescription:(CMFormatDescription)formatDescription;
+- (void) addAudioTrackWithFormatDescription:(CMFormatDescription)formatDescription;
+
 - (void) encodeWithBlock:(encoder_handler_t) block onParams: (param_handler_t) paramsHandler;
 - (void) encodeFrame:(CMSampleBufferRef) sampleBuffer;
 - (NSData*) getConfigData;
