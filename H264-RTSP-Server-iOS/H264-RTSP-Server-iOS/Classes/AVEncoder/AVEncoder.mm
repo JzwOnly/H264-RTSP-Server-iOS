@@ -65,8 +65,8 @@ static unsigned int to_host(unsigned char* p)
     int _currentFile;
     int _height;
     int _width;
-    CMFormatDescription _videoTrack;
-    CMFormatDescription _audioTrack;
+    CMFormatDescriptionRef _videoTrack;
+    CMFormatDescriptionRef _audioTrack;
     
     // param set data
     NSData* _avcC;
